@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, SET_MESSAGE, LOGOUT, REFRESH_TOKEN, REGISTER_SUCCESS } from '../types';
+import { LOGIN_SUCCESS, LOGIN_FAIL, SET_MESSAGE, LOGOUT } from '../types';
 import AuthService from '../../services/auth';
 
 export const doTryLogin = (username: string, password: string) => (dispatch: any) =>
@@ -35,39 +35,3 @@ export const logout = () => (dispatch: any) =>
         type: LOGOUT
     });
 };
-
-export const refreshToken = (acessToken: any) => (dispatch: any) =>
-{
-    dispatch(
-    {
-        type: REFRESH_TOKEN,
-        payload: acessToken
-    });
-};
-
-interface RegisterUserData { name: string, email: string, password: string }
-export const doRegisterUser = ( userData: RegisterUserData ) => (dispatch: any) =>
-{
-    return AuthService.register(userData).then((data: any) => 
-    {
-        dispatch(
-        {
-            type: REGISTER_SUCCESS,
-            payload: { user: data }
-        });
-
-        return Promise.resolve();
-    }, (error) => 
-    {
-        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-        dispatch({
-            type: LOGIN_FAIL
-        });
-        dispatch({
-            type: SET_MESSAGE,
-            payload: message
-        });
-
-        return Promise.reject();
-    });
-}

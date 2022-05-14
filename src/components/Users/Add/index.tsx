@@ -3,6 +3,7 @@ import UserService from '../../../services/user-service';
 
 import { Button, Container, Modal, Paper, Typography, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import InputMask from 'react-input-mask';
 
 const AddModal = () =>
 {
@@ -59,9 +60,31 @@ const AddModal = () =>
 
                         <form onSubmit={handleSubmit}>
                             <TextField margin="normal" required fullWidth label="Name" name="name" onChange={handleInputChange} />
-                            <TextField margin="normal" required fullWidth label="Birthdate" name="birthdate" onChange={handleInputChange} />
-                            <TextField margin="normal" required fullWidth label="Document" name="document" onChange={handleInputChange} />
-                            
+
+                            <InputMask
+                                mask='999.999.999-99'
+                                margin="normal"
+                                required 
+                                fullWidth 
+                                label="Document"
+                                name="document"
+                                onChange={handleInputChange}
+                            >
+                                {(inputProps: any) => <TextField {...inputProps} />}
+                            </InputMask>
+
+                            <InputMask
+                                mask='9999-99-99'
+                                margin="normal"
+                                required 
+                                fullWidth 
+                                label="Birthdate"
+                                name="birthdate"
+                                onChange={handleInputChange}
+                            >
+                                {(inputProps: any) => <TextField {...inputProps} />}
+                            </InputMask>
+
                             <Button type='submit' variant="contained" color="success" fullWidth startIcon={<AddIcon />} sx={{ mt: 2 }} >
                                 Adicionar
                             </Button>

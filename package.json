@@ -16,8 +16,11 @@
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",
     "axios": "^0.26.1",
+    "i": "^0.3.7",
+    "npm": "^8.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-input-mask": "^2.0.4",
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
@@ -51,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-input-mask": "^3.0.1",
     "redux-devtools-extension": "^2.13.9"
   }
 }

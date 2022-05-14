@@ -1,6 +1,6 @@
 import * as React from 'react';
 import UserService from '../../../services/user-service';
-
+import InputMask from 'react-input-mask';
 import { Button, Container, IconButton, Modal, Paper, Typography, TextField } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -68,8 +68,32 @@ const EditModal = (props: any) =>
 
                         <form onSubmit={handleSubmit}>
                             <TextField margin="normal" required fullWidth label="Name" name="name" defaultValue={ userInfo.name } onChange={handleInputChange} />
-                            <TextField margin="normal" required fullWidth label="Document" name="document" defaultValue={ userInfo.document } onChange={handleInputChange} />
-                            <TextField margin="normal" required fullWidth label="Birthdate" name="birthdate" defaultValue={ userInfo.birthdate } onChange={handleInputChange} />
+                            
+                            <InputMask
+                                mask='999.999.999-99'
+                                margin="normal"
+                                required 
+                                fullWidth 
+                                label="Document"
+                                name="document"
+                                defaultValue={ userInfo.document }
+                                onChange={handleInputChange}
+                            >
+                                {(inputProps: any) => <TextField {...inputProps} />}
+                            </InputMask>
+
+                            <InputMask
+                                mask='9999-99-99'
+                                margin="normal"
+                                required 
+                                fullWidth 
+                                label="Birthdate"
+                                name="birthdate"
+                                defaultValue={ userInfo.birthdate }
+                                onChange={handleInputChange}
+                            >
+                                {(inputProps: any) => <TextField {...inputProps} />}
+                            </InputMask>
                             
                             <Button type='submit' variant="contained" color="success" fullWidth startIcon={<EditIcon />} sx={{ mt: 2 }} >
                                 ATUALIZAR

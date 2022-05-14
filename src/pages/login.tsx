@@ -14,9 +14,7 @@ const LoginPage = () =>
                 <Typography>
                     Input your credentials  
                 </Typography>
-
                 <LoginForm />
-
             </Paper>
         </Container>
     )
