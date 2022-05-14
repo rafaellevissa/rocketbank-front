@@ -6,6 +6,8 @@ import { Add, Delete, Edit } from "../components/Users";
 import CustomDataGrid from '../components/DataGrid';
 import Layout from '../layouts/dashboard';
 import UserService from '../services/user-service';
+import { RootStateOrAny, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const columns: GridColDef[] =
 [
@@ -35,9 +37,16 @@ export default function UsersPage()
 {
 	const [users, setUsers] = useState([]);
 
+	const navigate: any = useNavigate();
+	const isLoggedIn = useSelector((state: RootStateOrAny) => state.auth)
+
 	useEffect(() => {
-		UserService.getCollaborators()
-			.then(({ data }) => setUsers(data.data));
+		if (!isLoggedIn?.token) {
+			return navigate('/login');
+		} else {
+			UserService.getCollaborators()
+				.then(({ data }) => setUsers(data.data));
+		}
 	}, []);
 
 	return (
