@@ -8,5 +8,5 @@ export function login(payload: Login) {
 }
 
 export function logout() {
-  return action(ActionTypes.LOGOUT_REQUEST, {});
+  return action(ActionTypes.LOGOUT_REQUEST);
 }

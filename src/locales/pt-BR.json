@@ -1,0 +1,34 @@
+{
+  "LOGIN": {
+    "TITLE": "Entrar",
+    "SUBTITLE": "Informe suas credenciais",
+    "EMAIL": "Email",
+    "PASSWORD": "Senha",
+    "SUBMIT": "Entrar",
+    "ERROR": "Por favor, verifique suas credenciais e tente novamente"
+  },
+  "CLIENT": {
+    "TITLE": "Clientes",
+    "EDIT_TITLE": "EDITAR CLIENTE",
+    "EDIT_SUBTITLE": "Informe as informações do cliente",
+    "ADD_TITLE": "ADICIONAR CLIENTE",
+    "ADD_SUBTITLE": "Informe as informações do cliente",
+    "DELETE_TITLE": "DELETAR CLIENTE",
+    "DELETE_CONFIRMATION": "Tem certeza que deseja deletar este cliente ?",
+    "DELETE_SUBMIT": "Deletar",
+    "SUBMIT": "Salvar",
+    "RESOURCES": {
+      "ID": "ID",
+      "NAME": "Nome",
+      "BIRTHDATE": "Data de nascimento",
+      "DOCUMENT": "CPF",
+      "ACTIONS": "Ações"
+    },
+    "ERROR": "Algo deu errado ao tentar carregar os recursos"
+  },
+  "ASIDEMENU": {
+    "TITLE": "ROCKETBANK",
+    "LOGOUT": "Sair",
+    "CLIENTS": "Clientes"
+  }
+}

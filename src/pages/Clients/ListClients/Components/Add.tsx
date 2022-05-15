@@ -7,9 +7,12 @@ import { useDispatch } from 'react-redux';
 import { clientSchema } from '../validator';
 import MaskedInput from '../../../../components/MaskedInput';
 import { add } from '../../../../store/modules/client/actions';
+import DatePicker from '../../../../components/DatePicker';
+import { useTranslation } from '../../../../hooks/use-translation';
 
 const AddModal = () => {
   const dispatch = useDispatch()
+  const {translate} = useTranslation()
 
   const [open, setOpen] = React.useState(false);
 
@@ -19,12 +22,13 @@ const AddModal = () => {
 
   const formikConfig: FormikConfig<FormikValues> = {
     initialValues: {
-      birthdate: '',
+      birthdate: null,
       document: '',
       name: ''
     },
     validationSchema: clientSchema,
-    onSubmit: handleSubmit
+    onSubmit: handleSubmit,
+    enableReinitialize: true
   }
   
 
@@ -34,23 +38,23 @@ const AddModal = () => {
   return (
     <div> 
       <Button size='medium' startIcon={ <AddIcon /> } color='primary' variant='contained' sx={{ mt: 3, mb: 3 }} onClick={handleOpen} >
-        ADD USERS
+        {translate('CLIENT:TITLE')}
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Container component='main' maxWidth="xs" sx={{ position: 'absolute', top: '20%', left: '35%' }}>
           <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
             <Typography component="h1" variant="h5">
-              Add User
+              {translate('CLIENT:TITLE')}
             </Typography>
             <Typography>
-              Input user information. 
+              {translate('CLIENT:ADD_SUBTITLE')}
             </Typography>
             <Formik {...formikConfig}>
-              {({ handleSubmit, errors, setFieldValue }) => (
+              {({ handleSubmit, errors, setFieldValue, values }) => (
                 <form onSubmit={handleSubmit}>
                   <Field
                     name="name"
-                    label="Name"
+                    label={translate('CLIENT:RESOURCES:NAME')}
                     margin="normal"
                     required
                     fullWidth
@@ -64,7 +68,7 @@ const AddModal = () => {
 
                   <Field
                     name="document"
-                    label="Document"
+                    label={translate('CLIENT:RESOURCES:DOCUMENT')}
                     margin="normal"
                     mask='999.999.999-99'
                     required
@@ -76,22 +80,20 @@ const AddModal = () => {
                       setFieldValue('document', target.value)
                     }
                   />
-
                   <Field
                     name="birthdate"
-                    label="Birthdate"
+                    label={translate('CLIENT:RESOURCES:BIRTHDATE')}
                     margin="normal"
-                    mask='9999-99-99'
+                    date={values?.birthdate}
                     required
                     fullWidth
-                    component={MaskedInput}
+                    component={DatePicker}
                     helperText={errors?.birthdate}
                     error={errors?.birthdate}
-                    onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
-                      setFieldValue('birthdate', target.value)
+                    onChange={(birthdate: Date) => 
+                      setFieldValue('birthdate', birthdate)
                     }
                   />
-
                   <Button
                     type='submit'
                     variant="contained"
@@ -100,7 +102,7 @@ const AddModal = () => {
                     startIcon={<AddIcon />}
                     sx={{ mt: 2 }}
                   >
-                    Adicionar
+                    {translate('CLIENT:SUBMIT')}
                   </Button>
                 </form>
               )}

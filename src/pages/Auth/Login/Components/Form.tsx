@@ -3,8 +3,10 @@ import { Field, useFormikContext } from 'formik'
 import { Alert, Box, Snackbar, TextField } from '@mui/material';
 import SubmitButton from './SubmitButton';
 import { useSelector } from 'react-redux';
+import { useTranslation } from '../../../../hooks/use-translation';
 
 const Form = () => {
+  const { translate } = useTranslation()
   const { handleSubmit, errors, setFieldValue } = useFormikContext<any>();
   const { error } = useSelector<any, any>(item => item.auth);
 
@@ -13,7 +15,7 @@ const Form = () => {
       <Box sx={{ mt: 1 }}>
         <Field
           name="email"
-          label="Email Address"
+          label={translate('LOGIN:EMAIL')}
           margin="normal"
           required
           fullWidth
@@ -28,7 +30,7 @@ const Form = () => {
         />
         <Field
           name="password"
-          label="Password"
+          label={translate('LOGIN:PASSWORD')}
           margin="normal"
           required
           fullWidth
@@ -45,13 +47,13 @@ const Form = () => {
           form='login-form'
           fullWidth
         >
-          Log In
+          {translate('LOGIN:SUBMIT')}
         </SubmitButton>
       </Box>
 
       <Snackbar open={error} autoHideDuration={300}>
         <Alert severity="error" sx={{ width: '100%' }}>
-          Please, check your credencials and try it again.
+          {translate('LOGIN:ERROR')}
         </Alert>
       </Snackbar>
     </form>

@@ -5,19 +5,21 @@ import LogOut from '../Logout';
 
 import { DrawerProps } from './types';
 import { CustomDrawer } from './styles';
+import { useTranslation } from '../../../hooks/use-translation';
 
-export default function SideBar(props: DrawerProps)
-{
-    return (
-			<CustomDrawer width={props.width} variant="permanent" anchor="left">
+export default function SideBar(props: DrawerProps) {
+	const { translate } = useTranslation()
+
+	return (
+		<CustomDrawer width={props.width} variant="permanent" anchor="left">
 			<Toolbar sx={{ alignItems: 'center' }}>
 				<Typography align='center' variant="subtitle1" sx={{ mt: 1, ml: 5 }} >
-					ROCKETBANK
+					{translate('ASIDEMENU:TITLE')}
 				</Typography>
 			</Toolbar>
 			<Divider />
 			<List>
-					<ListItemLink to="../users" primary="Users" icon={ <Group /> } isCollapsed />
+				<ListItemLink to="/" primary={translate('ASIDEMENU:CLIENTS')} icon={ <Group /> } isCollapsed />
 			</List>
 			<Divider />
 			<Toolbar sx={{ flexGrow: 1 }} />

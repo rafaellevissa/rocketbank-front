@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import AppRoutes from './routes';
 // import Theme from "./Theme";
 
+import './services/i18n-setup';
 
 export default function App() {
   return (

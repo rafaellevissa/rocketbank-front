@@ -4,9 +4,11 @@ import { Button, Container, IconButton, Modal, Paper, Typography } from "@mui/ma
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import { remove } from '../../../../store/modules/client/actions';
+import { useTranslation } from '../../../../hooks/use-translation';
 
 const DeleteModal = ({ id }: any) => {
   const dispatch = useDispatch()
+  const { translate } = useTranslation()
   const [open, setOpen] = React.useState<boolean>(false);
 
   const handleOpen = () => setOpen(true);
@@ -25,10 +27,10 @@ const DeleteModal = ({ id }: any) => {
         <Container component='main' maxWidth="xs" sx={{ position: 'absolute', top: '20%', left: '35%' }}>
           <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
               <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
-                Delete User
+                {translate('CLIENT:DELETE_TITLE')}
               </Typography>
               <Typography>
-                Tem certeza que deseja deletar este usuario?
+                {translate('CLIENT:DELETE_CONFIRMATION')}
               </Typography>
               <Button
                 type='submit'
@@ -39,7 +41,7 @@ const DeleteModal = ({ id }: any) => {
                 sx={{ mt: 2 }}
                 onClick={handleDelete}
               >
-                DELETE
+                {translate('CLIENT:DELETE_SUBMIT')}
               </Button>
           </Paper>
         </Container>

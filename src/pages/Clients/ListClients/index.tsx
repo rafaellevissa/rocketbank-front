@@ -10,43 +10,45 @@ import CustomDataGrid from '../../../components/DataGrid';
 import Layout from '../../../layouts/dashboard';
 import { useDispatch, useSelector } from "react-redux";
 import { list } from "../../../store/modules/client/actions";
-
-const columns: GridColDef[] = [
-	{ field: 'id', headerName: 'ID', minWidth: 30, flex: 0.3 },
-	{ field: 'name', headerName: 'Name', minWidth: 200, flex: 1 },
-	{ field: 'birthdate', headerName: 'Birthdate', minWidth: 200, flex: 1 },
-	
-	{ 
-		field: 'actions', 
-		headerName: 'Actions', 
-		minWidth: 50, 
-		flex: 1,
-		
-		renderCell: (params: GridCellParams) =>
-		{
-			return (
-				<div>
-					<Edit id={params.row.id} />
-					<Delete id={params.row.id} />
-				</div>
-			);
-		}
-	},
-]
+import { useTranslation } from "../../../hooks/use-translation";
 
 export const ListClientsPage = () => {
 	const dispatch = useDispatch();
+	const { translate } = useTranslation()
 	const { item, error } = useSelector<any, any>(item => item.client)
 
 	useEffect(() => {
 		dispatch(list());
 	}, []);
 
+	const columns: GridColDef[] = [
+		{ field: 'id', headerName: translate('CLIENT:RESOURCES:ID'), minWidth: 30, flex: 0.3 },
+		{ field: 'name', headerName: translate('CLIENT:RESOURCES:NAME'), minWidth: 200, flex: 1 },
+		{ field: 'birthdate', headerName: translate('CLIENT:RESOURCES:BIRTHDATE'), minWidth: 200, flex: 1 },
+		
+		{ 
+			field: 'actions', 
+			headerName: translate('CLIENT:RESOURCES:ACTIONS'),
+			minWidth: 50, 
+			flex: 1,
+			
+			renderCell: (params: GridCellParams) =>
+			{
+				return (
+					<div>
+						<Edit id={params.row.id} />
+						<Delete id={params.row.id} />
+					</div>
+				);
+			}
+		},
+	]
+
 	return (
 		<Layout>
 			<Grid container sx={{ width: '100%' }}>
 				<Grid item xs={12}>
-					<Typography variant='h6' > Users </Typography>
+					<Typography variant='h6' >{translate('CLIENT:TITLE')}</Typography>
 					<Divider />
 				</Grid>
 
@@ -66,7 +68,7 @@ export const ListClientsPage = () => {
 
 			<Snackbar open={error} autoHideDuration={300}>
         <Alert severity="error" sx={{ width: '100%' }}>
-          Something went wrong while trying to load resources
+          {translate('CLIENT:ERROR')}
         </Alert>
       </Snackbar>
 		</Layout>

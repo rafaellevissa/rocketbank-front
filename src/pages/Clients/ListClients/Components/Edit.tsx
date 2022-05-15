@@ -6,12 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clientSchema } from '../validator';
 import MaskedInput from '../../../../components/MaskedInput';
 import { find, update } from '../../../../store/modules/client/actions';
+import DatePicker from '../../../../components/DatePicker';
+import moment from 'moment'
+import { useTranslation } from '../../../../hooks/use-translation';
 
 const EditModal = (props: any) => {
   const dispatch = useDispatch()
   const { itemEdit } = useSelector<any, any>(item => item.client)
-
   const [open, setOpen] = React.useState(false);
+  const {translate} = useTranslation()
 
   React.useEffect(() => {
     if (open) {
@@ -31,7 +34,9 @@ const EditModal = (props: any) => {
   const formikConfig: FormikConfig<FormikValues> = {
     enableReinitialize: true,
     initialValues: {
-      birthdate: itemEdit?.birthdate,
+      birthdate: new Date(
+        moment(itemEdit?.birthdate, 'YYYY-MM-DD').toISOString()
+      ),
       document: itemEdit?.document,
       name: itemEdit?.name
     },
@@ -51,17 +56,17 @@ const EditModal = (props: any) => {
         <Container component='main' maxWidth="xs" sx={{ position: 'absolute', top: '20%', left: '35%' }}>
           <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
             <Typography component="h1" variant="h5">
-              Edit User
+              {translate('CLIENT:EDIT_TITLE')}
             </Typography>
             <Typography>
-              Edit user information. 
+              {translate('CLIENT:EDIT_SUBTITLE')}
             </Typography>
             <Formik {...formikConfig}>
               {({ handleSubmit, errors, setFieldValue, values }) => (
                 <form onSubmit={handleSubmit}>
                   <Field
                     name="name"
-                    label="Name"
+                    label={translate('CLIENT:RESOURCES:NAME')}
                     margin="normal"
                     required
                     fullWidth
@@ -76,7 +81,7 @@ const EditModal = (props: any) => {
 
                   <Field
                     name="document"
-                    label="Document"
+                    label={translate('CLIENT:RESOURCES:DOCUMENT')}
                     margin="normal"
                     mask='999.999.999-99'
                     required
@@ -92,17 +97,19 @@ const EditModal = (props: any) => {
 
                   <Field
                     name="birthdate"
-                    label="Birthdate"
+                    label={translate('CLIENT:RESOURCES:BIRTHDATE')}
                     margin="normal"
-                    mask='9999-99-99'
+                    date={values?.birthdate}
                     required
                     fullWidth
-                    value={values?.birthdate}
-                    component={MaskedInput}
+                    component={DatePicker}
                     helperText={errors?.birthdate}
                     error={errors?.birthdate}
-                    onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
-                      setFieldValue('birthdate', target.value)
+                    onChange={(birthdate: Date) => {
+                      if (Object.prototype.toString.call(birthdate) === "[object Date]") {
+                        setFieldValue('birthdate', birthdate);
+                      }
+                    }
                     }
                   />
 
@@ -114,7 +121,7 @@ const EditModal = (props: any) => {
                     startIcon={<EditIcon />}
                     sx={{ mt: 2 }}
                   >
-                    ATUALIZAR
+                    {translate('CLIENT:SUBMIT')}
                   </Button>
                 </form>
               )}

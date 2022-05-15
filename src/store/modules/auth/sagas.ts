@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { ActionTypes } from './consts';
 import api from '../../../services/api';
+import storage from 'redux-persist/lib/storage';
 
 
 export function* login({ payload }: Action): Generator {
@@ -31,6 +32,16 @@ export function* login({ payload }: Action): Generator {
 
 export function* logout(): Generator {
   try {
+    const response: unknown = yield call(api.post, '/logout');
+
+    const { data, status } = response as AxiosResponse<{ revoked: boolean }>;
+
+    if (status !== 200 || !data.revoked) {
+      throw response;
+    }
+
+    storage.removeItem('persist:@rocketbank');
+
     yield put({ type: ActionTypes.LOGOUT_SUCCESS });
   } catch (failed) {
     yield put({ type: ActionTypes.LOGOUT_FAILURE });
