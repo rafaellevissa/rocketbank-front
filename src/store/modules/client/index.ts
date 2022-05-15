@@ -1,11 +1,15 @@
 import {
   remove,
   list,
-  add
+  add,
+  find,
+  update
 } from './actions';
 
 export default {
   remove,
   list,
-  add
+  add,
+  find,
+  update
 };

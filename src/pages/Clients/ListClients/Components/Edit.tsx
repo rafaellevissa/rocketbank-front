@@ -1,31 +1,43 @@
 import * as React from 'react';
-import InputMask from 'react-input-mask';
 import { Formik, FormikConfig, FormikValues, Field } from 'formik'
 import { Button, Container, IconButton, Modal, Paper, Typography, TextField } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clientSchema } from '../validator';
+import MaskedInput from '../../../../components/MaskedInput';
+import { find, update } from '../../../../store/modules/client/actions';
 
 const EditModal = (props: any) => {
   const dispatch = useDispatch()
+  const { itemEdit } = useSelector<any, any>(item => item.client)
 
   const [open, setOpen] = React.useState(false);
 
-  const handleSubmit = (payload: FormikValues) => {
-    console.log(payload)
+  React.useEffect(() => {
+    if (open) {
+      dispatch(find(props.id))
+    }
+  }, [open])
 
+  const handleSubmit = (payload: FormikValues) => {
+    const data = {
+      ...payload,
+      id: props.id
+    }
+
+    dispatch(update(data))
   }
 
   const formikConfig: FormikConfig<FormikValues> = {
+    enableReinitialize: true,
     initialValues: {
-      birthdate: '',
-      document: '',
-      name: ''
+      birthdate: itemEdit?.birthdate,
+      document: itemEdit?.document,
+      name: itemEdit?.name
     },
     validationSchema: clientSchema,
-    onSubmit: handleSubmit
+    onSubmit: handleSubmit,
   }
-  
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -45,7 +57,7 @@ const EditModal = (props: any) => {
               Edit user information. 
             </Typography>
             <Formik {...formikConfig}>
-              {({ handleSubmit, errors, setFieldValue }) => (
+              {({ handleSubmit, errors, setFieldValue, values }) => (
                 <form onSubmit={handleSubmit}>
                   <Field
                     name="name"
@@ -53,6 +65,7 @@ const EditModal = (props: any) => {
                     margin="normal"
                     required
                     fullWidth
+                    value={values?.name}
                     component={TextField}
                     helperText={errors?.name}
                     error={errors?.name}
@@ -68,15 +81,14 @@ const EditModal = (props: any) => {
                     mask='999.999.999-99'
                     required
                     fullWidth
-                    component={InputMask}
+                    value={values?.document}
+                    component={MaskedInput}
                     helperText={errors?.document}
                     error={errors?.document}
                     onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
                       setFieldValue('document', target.value)
                     }
-                  >
-                    {(inputProps: any) => <TextField {...inputProps} />}
-                  </Field>
+                  />
 
                   <Field
                     name="birthdate"
@@ -85,15 +97,14 @@ const EditModal = (props: any) => {
                     mask='9999-99-99'
                     required
                     fullWidth
-                    component={InputMask}
+                    value={values?.birthdate}
+                    component={MaskedInput}
                     helperText={errors?.birthdate}
                     error={errors?.birthdate}
                     onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
                       setFieldValue('birthdate', target.value)
                     }
-                  >
-                    {(inputProps: any) => <TextField {...inputProps} />}
-                  </Field>
+                  />
 
                   <Button
                     type='submit'

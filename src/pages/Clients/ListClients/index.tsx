@@ -11,8 +11,7 @@ import Layout from '../../../layouts/dashboard';
 import { useDispatch, useSelector } from "react-redux";
 import { list } from "../../../store/modules/client/actions";
 
-const columns: GridColDef[] =
-[
+const columns: GridColDef[] = [
 	{ field: 'id', headerName: 'ID', minWidth: 30, flex: 0.3 },
 	{ field: 'name', headerName: 'Name', minWidth: 200, flex: 1 },
 	{ field: 'birthdate', headerName: 'Birthdate', minWidth: 200, flex: 1 },
@@ -56,7 +55,7 @@ export const ListClientsPage = () => {
 				</Grid>
 
 				<Grid item xs={12}>
-					{Array.isArray(item?.data) && (
+					{item?.data && (
 						<CustomDataGrid 
 							div={{ width: '100%', height: 500 }}
 							dataGrid={{ columns, rows: item?.data }}

@@ -12,10 +12,19 @@ export const ActionTypes: ActionTypesBase = {
   CLIENT_ADD_REQUEST: '@oauth/CLIENT_ADD_REQUEST',
   CLIENT_ADD_SUCCESS: '@oauth/CLIENT_ADD_SUCCESS',
   CLIENT_ADD_FAILURE: '@oauth/CLIENT_ADD_FAILURE',
+
+  CLIENT_FIND_REQUEST: '@oauth/CLIENT_FIND_REQUEST',
+  CLIENT_FIND_SUCCESS: '@oauth/CLIENT_FIND_SUCCESS',
+  CLIENT_FIND_FAILURE: '@oauth/CLIENT_FIND_FAILURE',
+
+  CLIENT_UPDATE_REQUEST: '@oauth/CLIENT_UPDATE_REQUEST',
+  CLIENT_UPDATE_SUCCESS: '@oauth/CLIENT_UPDATE_SUCCESS',
+  CLIENT_UPDATE_FAILURE: '@oauth/CLIENT_UPDATE_FAILURE',
 };
 
 export const InitialState: StateBase = {
   item: null,
+  itemEdit: null,
   error: false,
   loading: false,
 };

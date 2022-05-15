@@ -10,6 +10,14 @@ export interface ActionTypesBase {
   CLIENT_ADD_REQUEST: string;
   CLIENT_ADD_SUCCESS: string;
   CLIENT_ADD_FAILURE: string;
+
+  CLIENT_FIND_REQUEST: string;
+  CLIENT_FIND_SUCCESS: string;
+  CLIENT_FIND_FAILURE: string;
+
+  CLIENT_UPDATE_REQUEST: string;
+  CLIENT_UPDATE_SUCCESS: string;
+  CLIENT_UPDATE_FAILURE: string;
 }
 
 export interface Paginated<T = any> {
@@ -29,22 +37,23 @@ export interface Paginated<T = any> {
 
 export interface Client {
   id: number;
-  name: string;
-  birthdate: string;
-  document: string;
-  created_at: string;
-  updated_at: string;
+  name?: string;
+  birthdate?: string;
+  document?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface StateBase {
-  item: string | null;
+  item: string | Client | Client[] | null;
+  itemEdit: string | Client | null;
   error: boolean;
   loading: boolean;
 }
 
 export interface Action {
   type: string;
-  payload: string | null;
+  payload: string | Client | null;
   meta: any;
   error: any;
 }

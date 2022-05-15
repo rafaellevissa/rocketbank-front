@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button, Container, IconButton, Modal, Paper, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
-import { remove } from '../../../../store/modules/client/sagas';
+import { remove } from '../../../../store/modules/client/actions';
 
 const DeleteModal = ({ id }: any) => {
   const dispatch = useDispatch()
@@ -13,7 +13,7 @@ const DeleteModal = ({ id }: any) => {
   const handleClose = () => setOpen(false);
 
   const handleDelete = () => {
-    // dispatch(remove(id));
+    dispatch(remove(id));
   }
 
   return (

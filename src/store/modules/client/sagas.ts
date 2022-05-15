@@ -28,6 +28,28 @@ export function* add({ payload }: Action): Generator {
   }
 }
 
+export function* find({ payload }: Action): Generator {
+  try {
+    const response: unknown = yield call(api.get, '/clients/' + payload);
+
+    const { data, status } = response as AxiosResponse<Client>;
+
+    if (status !== 200) {
+      throw response;
+    }
+
+    yield put({
+      type: ActionTypes.CLIENT_FIND_SUCCESS,
+      payload: data,
+    });
+  } catch (failed) {
+    yield put({
+      type: ActionTypes.CLIENT_FIND_FAILURE,
+      payload: null,
+    });
+  }
+}
+
 export function* list(): Generator {
   try {
     const response: unknown = yield call(api.get, '/clients');
@@ -56,7 +78,7 @@ export function* remove({ payload }: Action): Generator {
 
     const { data, status } = response as AxiosResponse<any>;
 
-    if (status !== 201) {
+    if (status !== 200) {
       throw response;
     }
 
@@ -74,8 +96,37 @@ export function* remove({ payload }: Action): Generator {
   }
 }
 
+export function* update({ payload }: Action): Generator {
+  try {
+    const request = payload as Client;
+
+    const { id, ...requestPayload } = request;
+    const response: unknown = yield call(api.put, '/clients/' + id, requestPayload);
+
+    const { data, status } = response as AxiosResponse<Client>;
+
+    if (status !== 200) {
+      throw response;
+    }
+
+    yield put({
+      type: ActionTypes.CLIENT_UPDATE_SUCCESS,
+      payload: data,
+    });
+
+    window.location.reload()
+  } catch (failed) {
+    yield put({
+      type: ActionTypes.CLIENT_UPDATE_FAILURE,
+      payload: null,
+    });
+  }
+}
+
 export default all([
   takeLatest(ActionTypes.CLIENT_DELETE_REQUEST, remove),
   takeLatest(ActionTypes.CLIENT_LIST_REQUEST, list),
   takeLatest(ActionTypes.CLIENT_ADD_REQUEST, add),
+  takeLatest(ActionTypes.CLIENT_FIND_REQUEST, find),
+  takeLatest(ActionTypes.CLIENT_UPDATE_REQUEST, update),
 ]);
