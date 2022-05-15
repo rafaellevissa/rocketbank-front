@@ -14,7 +14,7 @@ export default function Appbar(props: AppBarProps)
                     ADMIN PANEL
                 </Typography>
 
-                <DarkThemeToggle />
+                {/* <DarkThemeToggle /> */}
 
                 <IconButton color="inherit">
                     <AccountBoxIcon />

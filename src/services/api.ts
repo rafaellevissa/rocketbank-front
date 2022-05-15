@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { store } from "../store";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -9,11 +10,11 @@ const api = axios.create({
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {
   try {
-    const auth = localStorage.getItem('user')
-    if (auth && config?.headers) {
-      const { token } = JSON.parse(auth)
+    const storage = store.getState();
+    const auth = storage?.auth?.item;
 
-      config.headers.Authorization = `Bearer ${token}`;
+    if (auth && config?.headers) {
+      config.headers.Authorization = `Bearer ${auth.token}`;
     }
 
     return config;

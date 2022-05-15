@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Divider, Grid, Typography } from '@mui/material';
+import React, { useEffect } from "react";
+import { Divider, Grid, Typography, Snackbar, Alert } from '@mui/material';
 import { GridColDef, GridCellParams } from '@mui/x-data-grid';
-import { Add, Delete, Edit } from "../components/Users";
 
-import CustomDataGrid from '../components/DataGrid';
-import Layout from '../layouts/dashboard';
-import UserService from '../services/user-service';
-import { RootStateOrAny, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import Edit from './Components/Edit';
+import Add from './Components/Add';
+import Delete from './Components/Delete';
+
+import CustomDataGrid from '../../../components/DataGrid';
+import Layout from '../../../layouts/dashboard';
+import { useDispatch, useSelector } from "react-redux";
+import { list } from "../../../store/modules/client/actions";
 
 const columns: GridColDef[] =
 [
@@ -33,20 +35,12 @@ const columns: GridColDef[] =
 	},
 ]
 
-export default function UsersPage()
-{
-	const [users, setUsers] = useState([]);
-
-	const navigate: any = useNavigate();
-	const isLoggedIn = useSelector((state: RootStateOrAny) => state.auth)
+export const ListClientsPage = () => {
+	const dispatch = useDispatch();
+	const { item, error } = useSelector<any, any>(item => item.client)
 
 	useEffect(() => {
-		if (!isLoggedIn?.token) {
-			return navigate('/login');
-		} else {
-			UserService.getCollaborators()
-				.then(({ data }) => setUsers(data.data));
-		}
+		dispatch(list());
 	}, []);
 
 	return (
@@ -62,14 +56,20 @@ export default function UsersPage()
 				</Grid>
 
 				<Grid item xs={12}>
-					{users && (
+					{Array.isArray(item?.data) && (
 						<CustomDataGrid 
 							div={{ width: '100%', height: 500 }}
-							dataGrid={{ columns, rows: users }}
+							dataGrid={{ columns, rows: item?.data }}
 						/>
 					)}
 				</Grid>
 			</Grid>
+
+			<Snackbar open={error} autoHideDuration={300}>
+        <Alert severity="error" sx={{ width: '100%' }}>
+          Something went wrong while trying to load resources
+        </Alert>
+      </Snackbar>
 		</Layout>
 	);
 }

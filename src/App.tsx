@@ -1,16 +1,21 @@
 import { Provider as ReduxProvider } from "react-redux";
-import store from './states/store';
-import AppRoutes from './routes';
 import { CssBaseline } from "@mui/material";
-import Theme from "./Theme";
+import { store, persistor } from './store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import AppRoutes from './routes';
+// import Theme from "./Theme";
+
 
 export default function App() {
   return (
-    <ReduxProvider store={store} >
-      <Theme>
-        <CssBaseline />
-        <AppRoutes />
-      </Theme>
-    </ReduxProvider>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <ReduxProvider store={store} >
+          <CssBaseline />
+            <AppRoutes />
+        </ReduxProvider>
+      </PersistGate>
+    </Provider>
   );
 }
