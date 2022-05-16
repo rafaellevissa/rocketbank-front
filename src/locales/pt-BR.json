@@ -32,6 +32,7 @@
     "CLIENTS": "Clientes"
   },
   "ERROR": {
+    "EXPIRED_SESSION": "Sua sessão expirou.",
     "VALIDATION": {
       "NUMBER": "Um número deve ser informado",
       "MIN": "Abaixo do mínimo de caracteres necessários",

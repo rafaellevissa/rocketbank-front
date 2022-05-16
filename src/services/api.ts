@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { t } from "i18next";
 import storage from "redux-persist/lib/storage";
 import { store } from "../store";
-import { logout } from "../store/modules/auth/actions";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -32,8 +32,9 @@ api.interceptors.response.use(
     const auth = getState().auth.item;
 
     if (error.response?.status === 401 && auth?.token) {
-      storage.removeItem('persist:@rocketbank');
+      alert(t('ERROR:EXPIRED_SESSION'));
 
+      storage.removeItem('persist:@rocketbank');
       window.location.reload()
     }
 
