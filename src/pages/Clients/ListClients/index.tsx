@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Divider, Grid, Typography, Snackbar, Alert } from '@mui/material';
 import { GridColDef, GridCellParams } from '@mui/x-data-grid';
 
+import Show from './Components/Show';
 import Edit from './Components/Edit';
 import Add from './Components/Add';
 import Delete from './Components/Delete';
@@ -49,6 +50,7 @@ export const ListClientsPage = () => {
 			{
 				return (
 					<div>
+						<Show id={params.row.id} />
 						<Edit id={params.row.id} />
 						<Delete id={params.row.id} />
 					</div>

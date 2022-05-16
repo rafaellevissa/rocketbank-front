@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 
 const MaskedInput = (props: any) => (
   <InputMask {...props}>
-    {(inputProps: any) => <TextField {...inputProps} />}
+    {(inputProps: any) => <TextField {...props} {...inputProps} />}
   </InputMask>
 )
 

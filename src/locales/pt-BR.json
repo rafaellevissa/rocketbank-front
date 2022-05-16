@@ -9,6 +9,8 @@
   },
   "CLIENT": {
     "TITLE": "Clientes",
+    "SHOW_TITLE": "Cliente",
+    "SHOW_SUBTITLE": "As informações do cliente",
     "EDIT_TITLE": "EDITAR CLIENTE",
     "EDIT_SUBTITLE": "Informe as informações do cliente",
     "ADD_TITLE": "ADICIONAR CLIENTE",

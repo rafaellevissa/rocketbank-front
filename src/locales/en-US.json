@@ -9,6 +9,8 @@
   },
   "CLIENT": {
     "TITLE": "Clients",
+    "SHOW_TITLE": "SHOW CLIENT",
+    "SHOW_SUBTITLE": "The client's information",
     "ADD_TITLE": "ADD CLIENT",
     "ADD_SUBTITLE": "Input client information",
     "DELETE_TITLE": "DELETE CLIENT",
