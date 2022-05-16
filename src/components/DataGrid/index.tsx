@@ -10,8 +10,14 @@ export default function CustomDataGrid(props: CustomDataGridProps)
 			<DataGrid 
 				rows={props.dataGrid.rows}
 				columns={props.dataGrid.columns}
-				pageSize={5}
-				rowsPerPageOptions={[5]}
+				rowCount={props.dataGrid.total}
+				loading={props.dataGrid.loading}
+				rowsPerPageOptions={[props.dataGrid.perPage]}
+				pagination
+				page={props.dataGrid.page}
+				pageSize={props.dataGrid.perPage}
+			 	paginationMode='server'
+				onPageChange={props.dataGrid.handlePageChange}
 				disableSelectionOnClick
 			/>
 		</CustomDiv>

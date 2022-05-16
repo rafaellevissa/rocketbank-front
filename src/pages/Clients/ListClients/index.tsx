@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Divider, Grid, Typography, Snackbar, Alert } from '@mui/material';
 import { GridColDef, GridCellParams } from '@mui/x-data-grid';
 
@@ -11,15 +11,28 @@ import Layout from '../../../layouts/dashboard';
 import { useDispatch, useSelector } from "react-redux";
 import { list } from "../../../store/modules/client/actions";
 import { useTranslation } from "../../../hooks/use-translation";
+import { Page } from "../../../store/modules/client/types";
 
 export const ListClientsPage = () => {
 	const dispatch = useDispatch();
 	const { translate } = useTranslation()
-	const { item, error } = useSelector<any, any>(item => item.client)
+	const { item, error, loading } = useSelector<any, any>(item => item.client)
+	const [page, setPage] = useState<Page>({
+		currentPage: 0,
+		perPage: 10
+	});
 
 	useEffect(() => {
-		dispatch(list());
-	}, []);
+		dispatch(list(page));
+	}, [page]);
+
+	const handlePageChange = (newPage: number) => {
+		console.log(newPage)
+		setPage({
+			...page,
+			currentPage: newPage
+		})
+	}
 
 	const columns: GridColDef[] = [
 		{ field: 'id', headerName: translate('CLIENT:RESOURCES:ID'), minWidth: 30, flex: 0.3 },
@@ -57,10 +70,18 @@ export const ListClientsPage = () => {
 				</Grid>
 
 				<Grid item xs={12}>
-					{item?.data && (
+					{Array.isArray(item?.data) && (
 						<CustomDataGrid 
 							div={{ width: '100%', height: 500 }}
-							dataGrid={{ columns, rows: item?.data }}
+							dataGrid={{ 
+								columns,
+								rows: item.data,
+								total: item.meta.total,
+								handlePageChange,
+								perPage: page.perPage,
+								page: page.currentPage,
+								loading,
+							}}
 						/>
 					)}
 				</Grid>

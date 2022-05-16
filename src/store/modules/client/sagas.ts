@@ -1,4 +1,4 @@
-import type { Action, Client, Paginated } from './types';
+import type { Action, Client, Page, Paginated } from './types';
 import { AxiosResponse } from 'axios';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { ActionTypes } from './consts';
@@ -50,9 +50,14 @@ export function* find({ payload }: Action): Generator {
   }
 }
 
-export function* list(): Generator {
+export function* list({ payload }: Action): Generator {
   try {
-    const response: unknown = yield call(api.get, '/clients');
+    const request = payload as Page;
+    const url = request.currentPage ?
+      `/clients?page=${request.currentPage + 1}&perPage=${request.perPage}`:
+      '/clients';
+
+    const response: unknown = yield call(api.get, url);
 
     const { data, status } = response as AxiosResponse<Paginated<Client>>;
 

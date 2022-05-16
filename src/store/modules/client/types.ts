@@ -45,15 +45,20 @@ export interface Client {
 }
 
 export interface StateBase {
-  item: string | Client | Client[] | null;
-  itemEdit: string | Client | null;
+  item: string | Page | Client | Client[] | null;
+  itemEdit: string | Client | Page | null;
   error: boolean;
   loading: boolean;
 }
 
 export interface Action {
   type: string;
-  payload: string | Client | null;
+  payload: string | Client | Page | null;
   meta: any;
   error: any;
+}
+
+export interface Page {
+	currentPage: number;
+	perPage: number;
 }

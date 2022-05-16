@@ -1,13 +1,13 @@
 import { action } from 'typesafe-actions';
 import { ActionTypes } from './consts';
-import { Client } from './types';
+import { Client, Page } from './types';
 
 export function remove(id: string) {
   return action(ActionTypes.CLIENT_DELETE_REQUEST, id);
 }
 
-export function list() {
-  return action(ActionTypes.CLIENT_LIST_REQUEST);
+export function list(page: Page) {
+  return action(ActionTypes.CLIENT_LIST_REQUEST, page);
 }
 
 export function add(payload: any) {
