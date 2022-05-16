@@ -1,23 +1,29 @@
-# ADMIN-PAINEL
+# ROCKETBANK
 
-## Tecnologias
+## TECHNOLOGIES
 - React
 - TypeScript
 - Material UI (MUI)
 
-## Requisitos
+## REQUIREMENTS
 - NPM
 
-## Instalação
+## INSTALL
 
-Instale o projeto pelo comando `git clone`;
+Once you have the project on your computer, you just need to install the dependencies with npm:
 
-Para realizar a instalação das dependências, utilize:
 ```
 npm install 
 ```
 
-Inicie o projeto com o comando
+After everything is installed, change the credencials at `.env` and run it with the folowing command:
+
 ```
 npm start
+```
+
+You can also run it with docker, if so:
+
+```
+docker-compose up -d --build
 ```
