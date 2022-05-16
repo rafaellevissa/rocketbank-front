@@ -9,7 +9,9 @@ import {
   IconButton,
   InputAdornment,
   OutlinedInput,
-  FormHelperText
+  FormHelperText,
+  FormControl,
+  InputLabel
 } from '@mui/material';
 
 import Visibility from '@mui/icons-material/Visibility';
@@ -48,35 +50,38 @@ const Form = () => {
             setFieldValue('email', target.value)
           }
         />
-        <Field
-          name="password"
-          label={translate('LOGIN:PASSWORD')}
-          margin="normal"
-          required
-          fullWidth
-          type={showPassword ? 'text': 'password'}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-          autoComplete="current-password"
-          error={errors?.password}
-          component={OutlinedInput}
-          onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
-            setFieldValue('password', target.value)
-          }
-        />
-        {errors.password && (
-          <FormHelperText error>{translate(errors.password as string)}</FormHelperText>
-        )}
+        <FormControl fullWidth>
+          <InputLabel error={Boolean(errors?.password)} htmlFor="component-outlined">{translate('LOGIN:PASSWORD')}</InputLabel>
+          <Field
+            id="component-outlined"
+            name="password"
+            margin="normal"
+            required
+            fullWidth
+            type={showPassword ? 'text': 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            autoComplete="current-password"
+            error={errors?.password}
+            component={OutlinedInput}
+            onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
+              setFieldValue('password', target.value)
+            }
+          />
+          {errors.password && (
+            <FormHelperText error>{translate(errors.password as string)}</FormHelperText>
+          )}
+        </FormControl>
 
         <SubmitButton 
           type="submit"
