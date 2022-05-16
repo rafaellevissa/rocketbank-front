@@ -1,14 +1,34 @@
 import * as React from 'react';
 import { Field, useFormikContext } from 'formik'
-import { Alert, Box, Snackbar, TextField } from '@mui/material';
-import SubmitButton from './SubmitButton';
 import { useSelector } from 'react-redux';
+import {
+  Alert,
+  Box,
+  Snackbar,
+  TextField,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  FormHelperText
+} from '@mui/material';
+
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+import SubmitButton from './SubmitButton';
 import { useTranslation } from '../../../../hooks/use-translation';
 
 const Form = () => {
   const { translate } = useTranslation()
   const { handleSubmit, errors, setFieldValue } = useFormikContext<any>();
   const { error } = useSelector<any, any>(item => item.auth);
+  const [showPassword, setShowPassword] = React.useState<boolean>(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   return (
     <form onSubmit={handleSubmit} id="login-form">
@@ -34,15 +54,30 @@ const Form = () => {
           margin="normal"
           required
           fullWidth
-          type="password"
+          type={showPassword ? 'text': 'password'}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
           autoComplete="current-password"
-          helperText={translate(errors.password as string)}
           error={errors?.password}
-          component={TextField}
+          component={OutlinedInput}
           onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
             setFieldValue('password', target.value)
           }
         />
+        {errors.password && (
+          <FormHelperText error>{translate(errors.password as string)}</FormHelperText>
+        )}
+
         <SubmitButton 
           type="submit"
           variant='contained'

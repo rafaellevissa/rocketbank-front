@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 interface ButtonProps {};
 
 const SubmitButton = styled(Button)<ButtonProps>(() => ({
-    mt: 3,
+    marginTop: 20,
     mb: 2,
     display: 'flex',
     flexDirection: 'column',
