@@ -22,7 +22,7 @@ const Form = () => {
           autoComplete="email"
           autoFocus
           component={TextField}
-          helperText={errors?.email}
+          helperText={translate(errors.email as string)}
           error={errors?.email}
           onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
             setFieldValue('email', target.value)
@@ -34,7 +34,9 @@ const Form = () => {
           margin="normal"
           required
           fullWidth
-          helperText={errors?.password}
+          type="password"
+          autoComplete="current-password"
+          helperText={translate(errors.password as string)}
           error={errors?.password}
           component={TextField}
           onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 

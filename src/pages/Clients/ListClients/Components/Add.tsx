@@ -59,7 +59,7 @@ const AddModal = () => {
                     required
                     fullWidth
                     component={TextField}
-                    helperText={errors?.name}
+                    helperText={translate(errors.name as string)}
                     error={errors?.name}
                     onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
                       setFieldValue('name', target.value)
@@ -74,7 +74,7 @@ const AddModal = () => {
                     required
                     fullWidth
                     component={MaskedInput}
-                    helperText={errors?.document}
+                    helperText={translate(errors.document as string)}
                     error={errors?.document}
                     onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
                       setFieldValue('document', target.value)
@@ -88,7 +88,7 @@ const AddModal = () => {
                     required
                     fullWidth
                     component={DatePicker}
-                    helperText={errors?.birthdate}
+                    helperText={translate(errors.birthdate as string)}
                     error={errors?.birthdate}
                     onChange={(birthdate: Date) => 
                       setFieldValue('birthdate', birthdate)

@@ -72,7 +72,7 @@ const EditModal = (props: any) => {
                     fullWidth
                     value={values?.name}
                     component={TextField}
-                    helperText={errors?.name}
+                    helperText={translate(errors.name as string)}
                     error={errors?.name}
                     onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
                       setFieldValue('name', target.value)
@@ -88,7 +88,7 @@ const EditModal = (props: any) => {
                     fullWidth
                     value={values?.document}
                     component={MaskedInput}
-                    helperText={errors?.document}
+                    helperText={translate(errors.document as string)}
                     error={errors?.document}
                     onChange={({ target }: React.ChangeEvent<HTMLInputElement>) => 
                       setFieldValue('document', target.value)
@@ -103,7 +103,7 @@ const EditModal = (props: any) => {
                     required
                     fullWidth
                     component={DatePicker}
-                    helperText={errors?.birthdate}
+                    helperText={translate(errors.birthdate as string)}
                     error={errors?.birthdate}
                     onChange={(birthdate: Date) => {
                       if (Object.prototype.toString.call(birthdate) === "[object Date]") {

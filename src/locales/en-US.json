@@ -28,5 +28,15 @@
     "TITLE": "ROCKETBANK",
     "LOGOUT": "Logout",
     "CLIENTS": "Clients"
+  },
+  "ERROR": {
+    "VALIDATION": {
+      "NUMBER": "Must have a number",
+      "MIN": "It was provided less than the minimum characters required",
+      "MAX": "You exceeded the max characters allowed",
+      "EMAIL": "Must be a valid e-mail",
+      "REQUIRED": "The field is required",
+      "DATE": "Must be a valid date"
+    }
   }
 }
