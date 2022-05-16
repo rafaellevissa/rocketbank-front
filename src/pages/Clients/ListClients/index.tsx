@@ -12,7 +12,8 @@ import Layout from '../../../layouts/dashboard';
 import { useDispatch, useSelector } from "react-redux";
 import { list } from "../../../store/modules/client/actions";
 import { useTranslation } from "../../../hooks/use-translation";
-import { Page } from "../../../store/modules/client/types";
+import { Client, Page } from "../../../store/modules/client/types";
+import moment from 'moment';
 
 export const ListClientsPage = () => {
 	const dispatch = useDispatch();
@@ -27,8 +28,9 @@ export const ListClientsPage = () => {
 		dispatch(list(page));
 	}, [page]);
 
+
+
 	const handlePageChange = (newPage: number) => {
-		console.log(newPage)
 		setPage({
 			...page,
 			currentPage: newPage
@@ -77,7 +79,10 @@ export const ListClientsPage = () => {
 							div={{ width: '100%', height: 500 }}
 							dataGrid={{ 
 								columns,
-								rows: item.data,
+								rows: item.data.map((element: Client) => ({
+									...element,
+									birthdate: moment(element.birthdate, 'YYYY-MM-DD').format('DD/MM/YYYY')
+								})),
 								total: item.meta.total,
 								handlePageChange,
 								perPage: page.perPage,
